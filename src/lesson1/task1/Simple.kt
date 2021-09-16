@@ -121,10 +121,8 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  */
 fun accountInThreeYears(initial: Int, percent: Int): Double {
     val Y: Double = initial.toDouble()
-    val z = Y + (Y * percent) / 100   // 1
-    val x = z + (z * percent) / 100   // 2
-    val c = x + (x * percent) / 100   // 3
-    return c
+    val z = Y * (1 + percent / 100.0).pow(3.0)
+    return z
 }
 
 /**
@@ -137,6 +135,6 @@ fun numberRevert(number: Int): Int {
     val q = number % 10           // последняя
     val w = (number / 10) % 10    // серединка
     val e = number / 100          // первая
-    val z = ((q*100)+(w*10)+e)
+    val z = ((q * 100) + (w * 10) + e)
     return z
 }
