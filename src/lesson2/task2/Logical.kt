@@ -101,7 +101,7 @@ fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
         }
     }
     val t: Boolean = (q >= 1)
-    return t
+    return t1
 
 
 }
