@@ -87,7 +87,15 @@ fun fib(n: Int): Int = TODO()
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
+fun minDivisor(n: Int): Int {
+    var h = n
+    for (i in 2..n) {
+        if (n % i == 0) {
+            if (h > i) h = i
+        }
+    }
+    return h
+}
 
 /**
  * Простая (2 балла)
