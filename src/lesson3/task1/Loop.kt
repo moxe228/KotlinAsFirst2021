@@ -80,7 +80,17 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+    var z = 1
+    var x = 1
+    for (i in 3..n) {
+        var c = z
+        z = x
+        x += c
+    }
+    return x
+}
+
 
 /**
  * Простая (2 балла)
@@ -88,7 +98,7 @@ fun fib(n: Int): Int = TODO()
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    for (i in 2..n) {
+    for (i in 2..(n / 2)) {
         if (n % i == 0) {
             return i
         }
@@ -103,7 +113,7 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    for (i in n-1 downTo 1) {
+    for (i in n - 1 downTo 1) {
         if (n % i == 0) {
             return i
         }
@@ -154,7 +164,16 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var number = n
+    var revert = 0
+    while (number != 0) {
+        var ostk = number % 10
+        revert = (revert + ostk) * 10
+        number /= 10
+    }
+    return revert / 10
+}
 
 /**
  * Средняя (3 балла)
@@ -217,6 +236,50 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  * 1123581321345589144...
  * Например, 2-я цифра равна 1, 9-я 2, 14-я 5.
  *
- * Использовать операции со строками в этой задаче запрещается.
+ * Использовать операции со строками-- в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var arr1 = 11
+    var revet = 0
+    var z = 1
+    var x = 1
+    if (n < 3) {
+        return 1
+    } else {
+        for (i in 3..n) {
+            var c = z
+            z = x
+            x += c
+        }
+        var q = x
+        while (q != 0) {
+            var ostk = q % 10
+            revet = (revet + ostk) * 10
+            q /= 10
+        }
+        var k = revet
+        while (arr1 > 10.pow(n - 1)) {
+            if (k < 10) {
+                arr1 = (arr1 * 10) + k
+            } else {
+                var l = k / 10
+                while (l != 0) {
+                    var f = l % 10
+                    arr1 = (arr1 * 10) + f
+                    l /= 10
+                }
+            }
+        }
+    }
+return arr1
+}
+
+
+
+private fun Int.pow(o: Int): Int {
+    var p = o
+    for (i in 1..o) {
+        p *= o
+    }
+    return p
+}

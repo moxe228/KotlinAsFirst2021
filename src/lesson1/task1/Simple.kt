@@ -99,8 +99,7 @@ fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double = TODO()
  * Определить третью цифру справа в этом числе (в данном случае 8).
  */
 fun thirdDigit(number: Int): Int {
-    val j = (number / 100) % 10
-    return j
+    return (number / 100) % 10
 }
 
 /**
@@ -120,8 +119,7 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
 fun accountInThreeYears(initial: Int, percent: Int): Double {
-    val z = initial * (1 + percent / 100.0).pow(3.0)
-    return z
+    return initial * (1 + percent / 100.0).pow(3.0)
 }
 
 /**
