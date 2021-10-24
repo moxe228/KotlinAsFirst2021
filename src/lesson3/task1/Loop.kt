@@ -2,6 +2,7 @@
 
 package lesson3.task1
 
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 // Урок 3: циклы
@@ -72,7 +73,18 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int {
+    var q = n
+    var w = 0
+    if (n == 0) w++
+    else {
+        while (q != 0) {
+            w++
+            q /= 10
+        }
+    }
+    return w
+}
 
 /**
  * Простая (2 балла)
@@ -81,9 +93,9 @@ fun digitNumber(n: Int): Int = TODO()
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    var z = 1
+    var z = 0
     var x = 1
-    for (i in 3..n) {
+    for (i in 2..n) {
         var c = z
         z = x
         x += c
@@ -239,47 +251,17 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  * Использовать операции со строками-- в этой задаче запрещается.
  */
 fun fibSequenceDigit(n: Int): Int {
-    var arr1 = 11
-    var revet = 0
-    var z = 1
-    var x = 1
-    if (n < 3) {
-        return 1
-    } else {
-        for (i in 3..n) {
-            var c = z
-            z = x
-            x += c
-        }
-        var q = x
-        while (q != 0) {
-            var ostk = q % 10
-            revet = (revet + ostk) * 10
-            q /= 10
-        }
-        var k = revet
-        while (arr1 > 10.pow(n - 1)) {
-            if (k < 10) {
-                arr1 = (arr1 * 10) + k
-            } else {
-                var l = k / 10
-                while (l != 0) {
-                    var f = l % 10
-                    arr1 = (arr1 * 10) + f
-                    l /= 10
-                }
+    var p = 1
+    var t = 0
+    return if (n == 1) 1
+    else {
+        while (p < n) {
+            for (i in 2..n) {
+                var o = fib(i)
+                p += digitNumber(o)
+                t = fib(i)
             }
         }
+        return (t / 10.0.pow(p - n).toInt()) % 10
     }
-return arr1
-}
-
-
-
-private fun Int.pow(o: Int): Int {
-    var p = o
-    for (i in 1..o) {
-        p *= o
-    }
-    return p
 }
