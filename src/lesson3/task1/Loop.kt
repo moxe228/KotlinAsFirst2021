@@ -180,8 +180,9 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
 fun revert(n: Int): Int {
     var number = n
     var revert = 0
+    var ostk = 0
     while (number != 0) {
-        var ostk = number % 10
+        ostk = number % 10
         revert = (revert + ostk) * 10
         number /= 10
     }
