@@ -3,6 +3,7 @@
 package lesson3.task1
 
 import kotlin.math.pow
+import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
 // Урок 3: циклы
@@ -110,12 +111,12 @@ fun fib(n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    for (i in 2..(n / 2)) {
+    for (i in 2..(Math.ceil(sqrt(n.toDouble())).toInt())) {
         if (n % i == 0) {
             return i
         }
     }
-    return 123
+return n
 }
 
 
