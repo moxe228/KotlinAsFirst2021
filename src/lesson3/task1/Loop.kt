@@ -178,15 +178,15 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun revert(n: Int): Int {
-    var number = n
-    var revert = 0
-    var ostk = 0
-    while (number != 0) {
-        ostk = number % 10
-        revert = (revert + ostk) * 10
-        number /= 10
+    var q = n
+    var w = 0
+    while (q > 0) {
+        var e = q % 10
+        w *= 10
+        w += e
+        q /= 10
     }
-    return revert / 10
+    return w
 }
 
 /**
@@ -259,8 +259,7 @@ fun fibSequenceDigit(n: Int): Int {
     else {
         while (p < n) {
             for (i in 2..n) {
-                var o = fib(i)
-                p += digitNumber(o)
+                p += digitNumber(fib(i))
                 t = fib(i)
             }
         }
