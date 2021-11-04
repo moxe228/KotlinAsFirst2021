@@ -221,12 +221,17 @@ fun factorizeToString(n: Int): String {
 fun convert(n: Int, base: Int): List<Int> {
     val z = mutableListOf<Int>()
     var x = n
+    if (n == 0) {
+        return listOf(0)
+    }
+    else {
     while (x > 0) {
         val c = x % base
         z.add(c)
         x /= base
     }
     return z.reversed()
+    }
 }
 
 /**
