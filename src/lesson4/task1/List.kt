@@ -128,14 +128,11 @@ fun abs(v: List<Double>): Double = TODO()
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>): Double {
-    var q = 0.0
+    var q = list.sum()
     val w = list.size
-    for (i in list) {
-        q = q + i
-    }
-    if (q == 0.0) {
-        return 0.0
-    } else return q / w
+    return if (q == 0.0) {
+        0.0
+    } else q / w
 }
 
 /**
@@ -208,7 +205,11 @@ fun factorize(n: Int): List<Int> {
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String {
+    return factorize(n).joinToString(
+        separator = "*"
+    )
+}
 
 /**
  * Средняя (3 балла)
@@ -217,7 +218,16 @@ fun factorizeToString(n: Int): String = TODO()
  * Результат перевода вернуть в виде списка цифр в base-ичной системе от старшей к младшей,
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
-fun convert(n: Int, base: Int): List<Int> = TODO()
+fun convert(n: Int, base: Int): List<Int> {
+    val z = mutableListOf<Int>()
+    var x = n
+    while (x > 0) {
+        val c = x % base
+        z.add(c)
+        x /= base
+    }
+    return z.reversed()
+}
 
 /**
  * Сложная (4 балла)
@@ -230,7 +240,46 @@ fun convert(n: Int, base: Int): List<Int> = TODO()
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, n.toString(base) и подобные), запрещается.
  */
-fun convertToString(n: Int, base: Int): String = TODO()
+fun convertToString(n: Int, base: Int): String {
+    val q = convert(n, base)
+    var e = ""
+    for (i in q.indices) {
+        if (q[i] > 9) {
+            when {
+                q[i] == 10 -> e += "a"
+                q[i] == 11 -> e += "b"
+                q[i] == 12 -> e += "c"
+                q[i] == 13 -> e += "d"
+                q[i] == 14 -> e += "e"
+                q[i] == 15 -> e += "f"
+                q[i] == 16 -> e += "g"
+                q[i] == 17 -> e += "h"
+                q[i] == 18 -> e += "i"
+                q[i] == 19 -> e += "j"
+                q[i] == 20 -> e += "k"
+                q[i] == 21 -> e += "l"
+                q[i] == 22 -> e += "m"
+                q[i] == 23 -> e += "n"
+                q[i] == 24 -> e += "o"
+                q[i] == 25 -> e += "p"
+                q[i] == 26 -> e += "q"
+                q[i] == 27 -> e += "r"
+                q[i] == 28 -> e += "s"
+                q[i] == 29 -> e += "t"
+                q[i] == 30 -> e += "u"
+                q[i] == 31 -> e += "v"
+                q[i] == 32 -> e += "w"
+                q[i] == 33 -> e += "x"
+                q[i] == 34 -> e += "y"
+                q[i] == 35 -> e += "z"
+            }
+        }
+        else {
+            e += q[i]
+        }
+    }
+    return e
+}
 
 /**
  * Средняя (3 балла)
@@ -263,7 +312,23 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    val z = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+    val x = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
+    var c = n
+    var o = ""
+    var k = 0
+    while (c > 0){
+        if (c - x[k] >= 0) {
+            o += z[k]
+            c -= x[k]
+        }
+        else {
+            k++
+        }
+    }
+    return o
+}
 
 /**
  * Очень сложная (7 баллов)
