@@ -223,14 +223,13 @@ fun convert(n: Int, base: Int): List<Int> {
     var x = n
     if (n == 0) {
         return listOf(0)
-    }
-    else {
-    while (x > 0) {
-        val c = x % base
-        z.add(c)
-        x /= base
-    }
-    return z.reversed()
+    } else {
+        while (x > 0) {
+            val c = x % base
+            z.add(c)
+            x /= base
+        }
+        return z.reversed()
     }
 }
 
@@ -278,8 +277,7 @@ fun convertToString(n: Int, base: Int): String {
                 q[i] == 34 -> e += "y"
                 q[i] == 35 -> e += "z"
             }
-        }
-        else {
+        } else {
             e += q[i]
         }
     }
@@ -323,12 +321,11 @@ fun roman(n: Int): String {
     var c = n
     var o = ""
     var k = 0
-    while (c > 0){
+    while (c > 0) {
         if (c - x[k] >= 0) {
             o += z[k]
             c -= x[k]
-        }
-        else {
+        } else {
             k++
         }
     }

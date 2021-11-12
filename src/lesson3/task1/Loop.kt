@@ -2,6 +2,7 @@
 
 package lesson3.task1
 
+import kotlin.math.ceil
 import kotlin.math.pow
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
@@ -111,7 +112,7 @@ fun fib(n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    for (i in 2..(Math.ceil(sqrt(n.toDouble())).toInt())) {
+    for (i in 2..(ceil(sqrt(n.toDouble())).toInt())) {
         if (n % i == 0) {
             return i
         }
