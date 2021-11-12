@@ -2,6 +2,8 @@
 
 package lesson5.task1
 
+import ru.spbstu.kotlin.typeclass.classes.defaultValue
+
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
 // Рекомендуемое количество баллов = 9
@@ -180,7 +182,21 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *   averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0))
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
-fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> = TODO()
+fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
+    val z = mutableMapOf<String, MutableList<Double>>()
+    val x = mutableMapOf<String, Double>()
+    for ((q, w) in stockPrices) {
+        if (q !in z) {
+            z[q] = mutableListOf(w)
+        } else {
+            z[q]?.add(w)
+        }
+    }
+    for (f in z) {
+        x[f.key] = f.value.average()
+    }
+    return x
+}
 
 /**
  * Средняя (4 балла)
