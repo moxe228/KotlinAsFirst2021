@@ -128,11 +128,7 @@ fun abs(v: List<Double>): Double = TODO()
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>): Double {
-    var q = list.sum()
-    val w = list.size
-    return if (q == 0.0) {
-        0.0
-    } else q / w
+    if (list.sum() == 0.0) return 0.0 else return list.average()
 }
 
 /**
@@ -245,38 +241,12 @@ fun convert(n: Int, base: Int): List<Int> {
  * (например, n.toString(base) и подобные), запрещается.
  */
 fun convertToString(n: Int, base: Int): String {
+    val t = "abcdefghijklmnopqrstuvwxyz"
     val q = convert(n, base)
     var e = ""
     for (i in q.indices) {
         if (q[i] > 9) {
-            when {
-                q[i] == 10 -> e += "a"
-                q[i] == 11 -> e += "b"
-                q[i] == 12 -> e += "c"
-                q[i] == 13 -> e += "d"
-                q[i] == 14 -> e += "e"
-                q[i] == 15 -> e += "f"
-                q[i] == 16 -> e += "g"
-                q[i] == 17 -> e += "h"
-                q[i] == 18 -> e += "i"
-                q[i] == 19 -> e += "j"
-                q[i] == 20 -> e += "k"
-                q[i] == 21 -> e += "l"
-                q[i] == 22 -> e += "m"
-                q[i] == 23 -> e += "n"
-                q[i] == 24 -> e += "o"
-                q[i] == 25 -> e += "p"
-                q[i] == 26 -> e += "q"
-                q[i] == 27 -> e += "r"
-                q[i] == 28 -> e += "s"
-                q[i] == 29 -> e += "t"
-                q[i] == 30 -> e += "u"
-                q[i] == 31 -> e += "v"
-                q[i] == 32 -> e += "w"
-                q[i] == 33 -> e += "x"
-                q[i] == 34 -> e += "y"
-                q[i] == 35 -> e += "z"
-            }
+            e += t[q[i] - 10]
         } else {
             e += q[i]
         }
