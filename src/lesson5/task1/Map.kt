@@ -3,6 +3,7 @@
 package lesson5.task1
 
 import ru.spbstu.kotlin.typeclass.classes.defaultValue
+import kotlin.math.max
 
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
@@ -183,17 +184,10 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
-    val z = mutableMapOf<String, MutableList<Double>>()
     val x = mutableMapOf<String, Double>()
-    for ((q, w) in stockPrices) {
-        if (q !in z) {
-            z[q] = mutableListOf(w)
-        } else {
-            z[q]?.add(w)
-        }
-    }
-    for (f in z) {
-        x[f.key] = f.value.average()
+    val k = stockPrices.groupBy({ it.first }, { it.second })
+    for (o in k) {
+        x[o.key] = o.value.average()
     }
     return x
 }
@@ -330,4 +324,17 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
  *     450
  *   ) -> emptySet()
  */
-fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> = TODO()
+fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> {
+    val r = mutableSetOf<String>()
+    var W = capacity
+    val n = treasures.size
+    for (o in treasures) {
+        val h = o.value
+        if (h.first < W) {
+            W -= h.first
+            r.add(o.key)
+        }
+    }
+
+return r
+}
