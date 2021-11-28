@@ -330,11 +330,12 @@ fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<Strin
     val n = treasures.size
     for (o in treasures) {
         val h = o.value
-        if (h.first < W) {
+
+        if (h.first <= W) {
             W -= h.first
             r.add(o.key)
         }
     }
 
-return r
+    return r
 }
