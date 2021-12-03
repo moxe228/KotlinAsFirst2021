@@ -117,7 +117,7 @@ fun minDivisor(n: Int): Int {
             return i
         }
     }
-return n
+    return n
 }
 
 
@@ -258,7 +258,7 @@ fun fibSequenceDigit(n: Int): Int {
     var t = 0
     return if (n == 1) 1
     else {
-        while (n > p){
+        while (n > p) {
             for (i in 2..n) {
                 p += digitNumber(fib(i))
                 t = fib(i)
