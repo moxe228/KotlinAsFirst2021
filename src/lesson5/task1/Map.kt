@@ -2,7 +2,6 @@
 
 package lesson5.task1
 
-import ru.spbstu.kotlin.typeclass.classes.defaultValue
 import kotlin.math.max
 
 // Урок 5: ассоциативные массивы и множества
@@ -101,15 +100,11 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
  */
 fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
     val q = mutableMapOf<Int, MutableList<String>>()
-    for (n in 6 - 1 downTo 1) {
-        val t = mutableListOf<String>()
-        for ((i, z) in grades) {
-            if (n == z){
-                t += i
-            }
-        }
-        if (t.size > 0){
-            q[n] = t
+    for ((i, z) in grades) {
+        if (q[z].isNullOrEmpty()) {
+            q[z] = mutableListOf(i)
+        } else {
+            q[z]?.add(i)
         }
     }
     return q
@@ -326,16 +321,40 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
  */
 fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> {
     val r = mutableSetOf<String>()
-    var W = capacity
-    val n = treasures.size
-    for (o in treasures) {
-        val h = o.value
+    val v = mutableListOf<Int>()                                                  //Ценности предметов
+    val w = mutableListOf<Int>()                                                  //Веса предметов
+    var l = capacity                                                              //Грузоподъемность(W)
+    var n = treasures.size                                                        //Количество предметов
+    val p = mutableListOf<String>()                                               //Названия
+    val m = Array(treasures.size + 1) { Array(capacity + 1) { 0 } }     //максимальная ценность предметов
+    for ((o, k) in treasures) {
+        p.add(o)
+        v.add(k.second)
+        w.add(k.first)
+    }
+    for (i in 1..treasures.size) {
+        for (j in 0..capacity) {
+            if (w[i - 1] <= j) {
+                m[i][j] = max(m[i - 1][j], m[i - 1][j - w[i - 1]] + v[i - 1])
+            } else {
+                m[i][j] = m[i - 1][j]
 
-        if (h.first <= W) {
-            W -= h.first
-            r.add(o.key)
+            }
+        }                                          // википедия
+    }
+    while (n > 0) {
+        if (m[n][l] != m[n - 1][l]) {
+            r.add(p[n - 1])
+            l -= w[n - 1]
         }
+        n -= 1
     }
 
     return r
 }
+
+
+
+
+
+

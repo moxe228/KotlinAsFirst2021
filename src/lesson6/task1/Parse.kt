@@ -2,6 +2,8 @@
 
 package lesson6.task1
 
+import ru.spbstu.kotlin.generate.assume.retry
+
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -74,7 +76,48 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val m = mapOf<String, Int>(
+        "января" to 1,                          // 31
+        "февраля" to 2,                         // 28(29)
+        "марта" to 3,                            // 31
+        "апреля" to 4,                          //30
+        "мая" to 5,                             //31
+        "июня" to 6,                            //30
+        "июля" to 7,                            //31
+        "августа" to 8,                         //31
+        "сентября" to 9,                        //30
+        "октября" to 10,                       //31
+        "ноября" to 11,                         //30
+        "декабря" to 12                         //31
+    )
+    if (str.trim().split(" ").size < 2) {
+        return ""
+    }
+    val q = str.split(" ")
+    var one = ""
+    one += (if (q[0].toInt() < 10) "0" + q[0] else q[0])
+    var two = str.split(" ")[1]
+    if (q[1] in m) {
+        for ((o, k) in m) {
+            if (q[1] == o) {
+                two = if (k < 10) {
+                    "0$k"
+                } else {
+                    "$k"
+                }
+                when (k) {
+                    1, 3, 5, 7, 8, 10, 12 -> return if (one.toInt() > 31) "" else "$one.$two." + q[2]
+                    4, 6, 9, 11 -> return if (one.toInt() > 30) "" else "$one.$two." + q[2]
+                    2 -> return if (one.toInt() > 28) "" else "$one.$two." + q[2]
+                }
+            }
+        }
+    } else {
+        return ""
+    }
+    return "$one.$two." + q[2]
+}
 
 /**
  * Средняя (4 балла)
@@ -86,7 +129,44 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val m = mapOf<Int, String>(
+        1 to "января",                          // 31
+        2 to "февраля",                         // 28(29)
+        3 to "марта",                            // 31
+        4 to "апреля",                          //30
+        5 to "мая",                             //31
+        6 to "июня",                            //30
+        7 to "июля",                            //31
+        8 to "августа",                         //31
+        9 to "сентября",                        //30
+        10 to "октября",                       //31
+        11 to "ноября",                         //30
+        12 to "декабря"                        //31
+    )
+    if (((digital.trim().split(".").size) != 3) and (digital.split(".")[0].toIntOrNull() == null)) {
+        return ""
+    }
+    val q = digital.split(".")
+    var one = digital.split(".")[0].toInt()
+    var two = digital.split(".")[1]
+    if (q[1].toInt() in m) {
+        for ((o, k) in m) {
+            if (q[1].toInt() == o) {
+                two = k
+                when (o) {
+                    1, 3, 5, 7, 8, 10, 12 -> return if (one.toInt() > 31) "" else "$one $two " + q[2]
+                    4, 6, 9, 11 -> return if (one.toInt() > 30) "" else "$one $two " + q[2]
+                    2 -> return if (one.toInt() > 28) "" else "$one $two " + q[2]
+                }
+            }
+        }
+    } else {
+        return ""
+    }
+    return "$one $two " + q[2]
+}
+
 
 /**
  * Средняя (4 балла)
