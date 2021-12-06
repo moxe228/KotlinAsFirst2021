@@ -240,12 +240,11 @@ fun convert(n: Int, base: Int): List<Int> {
  * (например, n.toString(base) и подобные), запрещается.
  */
 fun convertToString(n: Int, base: Int): String {
-    val t = "abcdefghijklmnopqrstuvwxyz"
     val q = convert(n, base)
     var e = ""
     for (i in q.indices) {
         if (q[i] > 9) {
-            e += t[q[i] - 10]
+            e += ('a' + (q[i] - 10))
         } else {
             e += q[i]
         }
