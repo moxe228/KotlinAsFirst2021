@@ -105,7 +105,7 @@ fun dateStrToDigit(str: String): String {
             2 -> if (year.toInt() % 4 == 0) 29 else 28
             else -> return ""
         }
-        if ((!str.isNullOrEmpty()) && (day.toInt() in 1..maxday) && (year.length < 5)) {
+        if ((!str.isNullOrEmpty()) && (day.toInt() in 1..maxday) && (year.length < 6)) {
             return "$day.$month.$year"
         }
     }
@@ -151,7 +151,7 @@ fun dateDigitToStr(digital: String): String {
             2 -> if (year.toInt() % 4 == 0) 29 else 28
             else -> return ""
         }
-        if ((!digital.isNullOrEmpty()) && (day.toInt() in 1..maxday)) {
+        if ((!digital.isNullOrEmpty()) && (day.toInt() in 1..maxday) && (year.length < 6)) {
             return "${day.toInt()} $month $year"
         }
     }
