@@ -77,46 +77,39 @@ fun main() {
  * входными данными.
  */
 fun dateStrToDigit(str: String): String {
-    val m = mapOf<String, Int>(
-        "января" to 1,                          // 31
-        "февраля" to 2,                         // 28(29)
-        "марта" to 3,                            // 31
-        "апреля" to 4,                          //30
-        "мая" to 5,                             //31
-        "июня" to 6,                            //30
-        "июля" to 7,                            //31
-        "августа" to 8,                         //31
-        "сентября" to 9,                        //30
-        "октября" to 10,                       //31
-        "ноября" to 11,                         //30
-        "декабря" to 12                         //31
-    )
-    if (str.trim().split(" ").size < 2) {
+    if (str.trim().split(" ").size != 3) {
         return ""
     }
-    val q = str.split(" ")
-    var one = ""
-    one += (if (q[0].toInt() < 10) "0" + q[0] else q[0])
-    var two = str.split(" ")[1]
-    if (q[1] in m) {
-        for ((o, k) in m) {
-            if (q[1] == o) {
-                two = if (k < 10) {
-                    "0$k"
-                } else {
-                    "$k"
-                }
-                when (k) {
-                    1, 3, 5, 7, 8, 10, 12 -> return if (one.toInt() > 31) "" else "$one.$two." + q[2]
-                    4, 6, 9, 11 -> return if (one.toInt() > 30) "" else "$one.$two." + q[2]
-                    2 -> return if (one.toInt() > 28) "" else "$one.$two." + q[2]
-                }
-            }
+    val date = str.split(" ")
+    val day = if (date[0].toInt() < 10) "0${date[0]}" else date[0]
+    val month = when (date[1]) {
+        "января" -> "01"                         //31
+        "февраля" -> "02"                        //28(29)
+        "марта" -> "03"                          //31
+        "апреля" -> "04"                         //30
+        "мая" -> "05"                            //31
+        "июня" -> "06"                           //30
+        "июля" -> "07"                           //31
+        "августа" -> "08"                        //31
+        "сентября" -> "09"                       //30
+        "октября" -> "10"                        //31
+        "ноября" -> "11"                         //30
+        "декабря" -> "12"                        //31
+        else -> return ""
+    }
+    val year = date[2]
+    if (str.matches(Regex("""\d* [а-я]* \d*"""))) {
+        val maxday = when (month.toInt()) {
+            1, 3, 5, 7, 8, 10, 12 -> 31
+            4, 6, 9, 11 -> 30
+            2 -> if (year.toInt() % 4 == 0) 29 else 28
+            else -> return ""
         }
-    } else {
-        return ""
+        if ((!str.isNullOrEmpty()) && (day.toInt() in 1..maxday)) {
+            return "$day.$month.$year"
+        }
     }
-    return "$one.$two." + q[2]
+    return ""
 }
 
 /**
@@ -130,41 +123,39 @@ fun dateStrToDigit(str: String): String {
  * входными данными.
  */
 fun dateDigitToStr(digital: String): String {
-    val m = mapOf<Int, String>(
-        1 to "января",                          // 31
-        2 to "февраля",                         // 28(29)
-        3 to "марта",                            // 31
-        4 to "апреля",                          //30
-        5 to "мая",                             //31
-        6 to "июня",                            //30
-        7 to "июля",                            //31
-        8 to "августа",                         //31
-        9 to "сентября",                        //30
-        10 to "октября",                       //31
-        11 to "ноября",                         //30
-        12 to "декабря"                        //31
-    )
-    if (((digital.trim().split(".").size) != 3) and (digital.split(".")[0].toIntOrNull() == null)) {
+    if ((digital.trim().split(".").size) != 3) {
         return ""
     }
-    val q = digital.split(".")
-    var one = digital.split(".")[0].toInt()
-    var two = digital.split(".")[1]
-    if (q[1].toInt() in m) {
-        for ((o, k) in m) {
-            if (q[1].toInt() == o) {
-                two = k
-                when (o) {
-                    1, 3, 5, 7, 8, 10, 12 -> return if (one.toInt() > 31) "" else "$one $two " + q[2]
-                    4, 6, 9, 11 -> return if (one.toInt() > 30) "" else "$one $two " + q[2]
-                    2 -> return if (one.toInt() > 28) "" else "$one $two " + q[2]
-                }
-            }
+    val date = digital.split(".")
+    val day = date[0]
+    val month = when (date[1]) {
+        "01" -> "января"                         //31
+        "02" -> "февраля"                        //28(29)
+        "03" -> "марта"                          //31
+        "04" -> "апреля"                         //30
+        "05" -> "мая"                           //31
+        "06" -> "июня"                           //30
+        "07" -> "июля"                           //31
+        "08" -> "августа"                        //31
+        "09" -> "сентября"                       //30
+        "10" -> "октября"                        //31
+        "11" -> "ноября"                         //30
+        "12" -> "декабря"                        //31
+        else -> return ""
+    }
+    val year = date[2]
+    if (digital.matches(Regex("""\d*\.\d*\.\d*"""))) {
+        val maxday = when (date[1].toInt()) {
+            1, 3, 5, 7, 8, 10, 12 -> 31
+            4, 6, 9, 11 -> 30
+            2 -> if (year.toInt() % 4 == 0) 29 else 28
+            else -> return ""
         }
-    } else {
-        return ""
+        if ((!digital.isNullOrEmpty()) && (day.toInt() in 1..maxday)) {
+            return "${day.toInt()} $month $year"
+        }
     }
-    return "$one $two " + q[2]
+    return ""
 }
 
 
