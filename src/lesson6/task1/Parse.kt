@@ -102,7 +102,11 @@ fun dateStrToDigit(str: String): String {
         val maxday = when (month.toInt()) {
             1, 3, 5, 7, 8, 10, 12 -> 31
             4, 6, 9, 11 -> 30
-            2 -> if (year.toInt() % 4 == 0) 29 else 28
+            2 -> if (year.toInt() % 4 == 0) {
+                if (year.toInt() % 100 == 0) {
+                    if (year.toInt() % 400 == 0) 29 else 28
+                } else 29
+            } else 28
             else -> return ""
         }
         if ((!str.isNullOrEmpty()) && (day.toInt() in 1..maxday)) {
@@ -148,7 +152,11 @@ fun dateDigitToStr(digital: String): String {
         val maxday = when (date[1].toInt()) {
             1, 3, 5, 7, 8, 10, 12 -> 31
             4, 6, 9, 11 -> 30
-            2 -> if (year.toInt() % 4 == 0) 29 else 28
+            2 -> if (year.toInt() % 4 == 0) {
+                if (year.toInt() % 100 == 0) {
+                    if (year.toInt() % 400 == 0) 29 else 28
+                } else 29
+            } else 28
             else -> return ""
         }
         if ((!digital.isNullOrEmpty()) && (day.toInt() in 1..maxday)) {
