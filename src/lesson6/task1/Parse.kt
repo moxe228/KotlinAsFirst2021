@@ -3,6 +3,7 @@
 package lesson6.task1
 
 import ru.spbstu.kotlin.generate.assume.retry
+import ru.spbstu.wheels.toRecordString
 
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
@@ -77,28 +78,29 @@ fun main() {
  * входными данными.
  */
 fun dateStrToDigit(str: String): String {
+
     if (str.trim().split(" ").size != 3) {
         return ""
     }
-    val date = str.split(" ")
-    val day = if (date[0].toInt() < 10) "0${date[0].toInt()}" else date[0]
-    val month = when (date[1]) {
-        "января" -> "01"                         //31
-        "февраля" -> "02"                        //28(29)
-        "марта" -> "03"                          //31
-        "апреля" -> "04"                         //30
-        "мая" -> "05"                            //31
-        "июня" -> "06"                           //30
-        "июля" -> "07"                           //31
-        "августа" -> "08"                        //31
-        "сентября" -> "09"                       //30
-        "октября" -> "10"                        //31
-        "ноября" -> "11"                         //30
-        "декабря" -> "12"                        //31
-        else -> return ""
-    }
-    val year = date[2]
     if (str.matches(Regex("""\d* [а-я]* \d*"""))) {
+        val date = str.split(" ")
+        val day = if (date[0].toInt() < 10) "0${date[0].toInt()}" else date[0]
+        val month = when (date[1]) {
+            "января" -> "01"                         //31
+            "февраля" -> "02"                        //28(29)
+            "марта" -> "03"                          //31
+            "апреля" -> "04"                         //30
+            "мая" -> "05"                            //31
+            "июня" -> "06"                           //30
+            "июля" -> "07"                           //31
+            "августа" -> "08"                        //31
+            "сентября" -> "09"                       //30
+            "октября" -> "10"                        //31
+            "ноября" -> "11"                         //30
+            "декабря" -> "12"                        //31
+            else -> return ""
+        }
+        val year = date[2]
         val maxday = when (month.toInt()) {
             1, 3, 5, 7, 8, 10, 12 -> 31
             4, 6, 9, 11 -> 30
@@ -130,25 +132,25 @@ fun dateDigitToStr(digital: String): String {
     if ((digital.trim().split(".").size) != 3) {
         return ""
     }
-    val date = digital.split(".")
-    val day = date[0]
-    val month = when (date[1]) {
-        "01" -> "января"                         //31
-        "02" -> "февраля"                        //28(29)
-        "03" -> "марта"                          //31
-        "04" -> "апреля"                         //30
-        "05" -> "мая"                           //31
-        "06" -> "июня"                           //30
-        "07" -> "июля"                           //31
-        "08" -> "августа"                        //31
-        "09" -> "сентября"                       //30
-        "10" -> "октября"                        //31
-        "11" -> "ноября"                         //30
-        "12" -> "декабря"                        //31
-        else -> return ""
-    }
-    val year = date[2]
     if (digital.matches(Regex("""\d*\.\d*\.\d*"""))) {
+        val date = digital.split(".")
+        val day = date[0]
+        val month = when (date[1]) {
+            "01" -> "января"                         //31
+            "02" -> "февраля"                        //28(29)
+            "03" -> "марта"                          //31
+            "04" -> "апреля"                         //30
+            "05" -> "мая"                           //31
+            "06" -> "июня"                           //30
+            "07" -> "июля"                           //31
+            "08" -> "августа"                        //31
+            "09" -> "сентября"                       //30
+            "10" -> "октября"                        //31
+            "11" -> "ноября"                         //30
+            "12" -> "декабря"                        //31
+            else -> return ""
+        }
+        val year = date[2]
         val maxday = when (date[1].toInt()) {
             1, 3, 5, 7, 8, 10, 12 -> 31
             4, 6, 9, 11 -> 30
@@ -228,7 +230,18 @@ fun plusMinus(expression: String): Int = TODO()
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+    val words = str.trim().split(" ")
+    var r = 0
+    if (words.size > 1) {
+        for (i in 1 until words.size) {
+            if (words[i - 1].equals(words[i], ignoreCase = true))
+                return r
+            r += words[i - 1].length + 1
+        }
+    }
+    return -1
+}
 
 /**
  * Сложная (6 баллов)
@@ -241,7 +254,15 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше нуля либо равны нулю.
  */
-fun mostExpensive(description: String): String = TODO()
+fun mostExpensive(description: String): String {
+    var r = ""
+    val listok = description.trim().split("; ")
+    var maxprice = -1
+    for (i in listok.indices) {
+
+    }
+    return ""
+}
 
 /**
  * Сложная (6 баллов)
