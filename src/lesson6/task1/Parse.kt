@@ -2,9 +2,6 @@
 
 package lesson6.task1
 
-import ru.spbstu.kotlin.generate.assume.retry
-import ru.spbstu.wheels.toRecordString
-
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -256,12 +253,17 @@ fun firstDuplicateIndex(str: String): Int {
  */
 fun mostExpensive(description: String): String {
     var r = ""
-    val listok = description.trim().split("; ")
-    var maxprice = -1
-    for (i in listok.indices) {
-
+    if (description.isNullOrEmpty()) return ""
+    val priceList = description.trim().split("; ")
+    var maxPrice = -1.0
+    for (i in priceList.indices) {
+        val priceAndName = priceList[i].split(" ")
+        if (priceAndName[1].toDouble() >= maxPrice) {
+            maxPrice = priceAndName[1].toDouble()
+            r = priceAndName[0]
+        }
     }
-    return ""
+    return r
 }
 
 /**
