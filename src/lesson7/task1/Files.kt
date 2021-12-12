@@ -67,19 +67,17 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  */
 fun deleteMarked(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
-    var outputName = ""
-    var text = File(inputName)
-        .readLines()
-    for (i in text.indices) {
-        if (text[i].isEmpty()) {
-            outputName += "\n"
+    for (line in File(inputName).readLines()) {
+        if (line.isEmpty()) {
+            writer.newLine()
             continue
         }
-        if (text[i].get(0) !in "_") {
-            outputName += "${text[i]}\n"
-
+        if (line.get(0) !in "_") {
+            writer.write(line)
+            writer.newLine()
         }
     }
+    writer.close()
 }
 
 
@@ -92,7 +90,24 @@ fun deleteMarked(inputName: String, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
+    var r = mutableMapOf<String, Int>()
+    val text = File(inputName).readText().toLowerCase()
+    val list = substrings
+    var counter = 0
+    for (necessaryWords in substrings.indices) {
+        for (x in text.indices) {
+            if (substrings[necessaryWords].toLowerCase() in text) {
+                counter ++
+
+            }
+            r += substrings[necessaryWords] to counter
+
+        }
+        counter = 0
+    }
+    return r
+}
 
 
 /**
