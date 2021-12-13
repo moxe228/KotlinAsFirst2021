@@ -95,18 +95,18 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
     val text = File(inputName).readText().toLowerCase()
     val list = substrings
     var counter = 0
-    for (necessaryWords in list.indices) {
+    for (y in list.indices) {
         for (x in text.indices) {
-            if (list[necessaryWords].toLowerCase() in text[x].toString()) {
-                counter++
+            if (text.startsWith((list[y]).toLowerCase(), x)) {
+                counter += 1
             }
-            r += substrings[necessaryWords] to counter
+            r += (list[y] to counter)
         }
         counter = 0
     }
     return r
-}
 
+}
 
 /**
  * Средняя (12 баллов)
