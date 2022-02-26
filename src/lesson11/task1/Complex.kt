@@ -82,10 +82,8 @@ class Complex(val re: Double, val im: Double) {
     override fun toString(): String {
         if (im > 0){
             return "$re+${im}i"
-            println("$re+${im}i")
         }else{
             return "$re${im}i"
-            println("$re${im}i")
         }
     }
 }
