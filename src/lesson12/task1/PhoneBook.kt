@@ -2,6 +2,8 @@
 
 package lesson12.task1
 
+import lesson5.task1.mergePhoneBooks
+
 /**
  * Класс "Телефонная книга".
  *
@@ -18,7 +20,7 @@ package lesson12.task1
  * Класс должен иметь конструктор по умолчанию (без параметров).
  */
 class PhoneBook {
-    val q = mutableMapOf<String, MutableList<String>>() //книга
+    val q = mutableMapOf<String, MutableSet<String>>() //книга
 
     /**
      * Добавить человека.
@@ -27,13 +29,13 @@ class PhoneBook {
      * (во втором случае телефонная книга не должна меняться).
      */
 
-    fun addHuman(name: String): Boolean {
+    fun addHuman(name: String): Boolean =
         if (name !in q) {
-            q[name] = mutableListOf()
-            return true
-        }
-        return false
-    }
+            q[name] = mutableSetOf()
+            true
+        } else
+            false
+
 
     /**
      * Убрать человека.
@@ -41,13 +43,13 @@ class PhoneBook {
      * и false, если человек с таким именем отсутствовал в телефонной книге
      * (во втором случае телефонная книга не должна меняться).
      */
-    fun removeHuman(name: String): Boolean {
+    fun removeHuman(name: String): Boolean =
         if (name in q) {
-            q -= name
-            return true
-        }
-        return false
-    }
+            q.remove(name)
+            true
+        } else
+            false
+
 
     /**
      * Добавить номер телефона.
@@ -56,17 +58,12 @@ class PhoneBook {
      * либо у него уже был такой номер телефона,
      * либо такой номер телефона зарегистрирован за другим человеком.
      */
-    fun addPhone(name: String, phone: String): Boolean {
-        if (name in q) {
-            for ((a, b) in q) {
-                if ((a == name) && !q.values.toString().contains(phone)) {
-                    q[name] = (b + phone) as MutableList<String>
-                    return true
-                }
-            }
-        }
-        return false
-    }
+    fun addPhone(name: String, phone: String): Boolean =
+        if (name in q && !q.values.any { it.contains(phone) }) {
+            q[name]!!.plusAssign(phone)
+            true
+        } else false
+
 
     /**
      * Убрать номер телефона.
@@ -74,15 +71,12 @@ class PhoneBook {
      * и false, если человек с таким именем отсутствовал в телефонной книге
      * либо у него не было такого номера телефона.
      */
-    fun removePhone(name: String, phone: String): Boolean {
-        for ((a, b) in q) {
-            if ((a == name) && q.values.toString().contains(phone)) {
-                q[name] = (b - phone) as MutableList<String>
-                return true
-            }
-        }
-        return false
-    }
+    fun removePhone(name: String, phone: String): Boolean =
+        if (name in q && q.values.any { it.contains(phone) }) {
+            q[name]!!.remove(phone)
+            true
+        } else
+            false
 
     /**
      * Вернуть все номера телефона заданного человека.
@@ -121,26 +115,10 @@ class PhoneBook {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PhoneBook) return false
-        for (a in q) {
-            if (a.key in other.q.keys) {
-                for (b in other.q) {
-                    if (a.key == b.key) {
-                        if (!a.value.containsAll(b.value)) {
-                            return false
-                        }
-                    }
-                }
-            } else {
-                return false
-            }
-        }
+        if (q != other.q) return false
         return true
     }
 
-    override fun hashCode(): Int {
-        var result = q.keys.hashCode()
-        result = 31 * result + q.values.forEach { it.hashCode() }.hashCode()
-        return result
-    }
+    override fun hashCode(): Int = q.hashCode()
 
 }
