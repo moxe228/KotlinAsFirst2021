@@ -2,7 +2,6 @@
 
 package lesson12.task1
 
-import lesson5.task1.mergePhoneBooks
 
 /**
  * Класс "Телефонная книга".
@@ -82,17 +81,7 @@ class PhoneBook {
      * Вернуть все номера телефона заданного человека.
      * Если этого человека нет в книге, вернуть пустой список
      */
-    fun phones(name: String): Set<String> {
-        val number = mutableSetOf<String>()
-        for ((a, b) in q) {
-            if (a == name) {
-                for (x in b) {
-                    number += x
-                }
-            }
-        }
-        return number
-    }
+    fun phones(name: String): Set<String> = q.getValue(name).toSet()
 
     /**
      * Вернуть имя человека по заданному номеру телефона.
