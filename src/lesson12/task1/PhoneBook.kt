@@ -59,7 +59,8 @@ class PhoneBook {
      */
     fun addPhone(name: String, phone: String): Boolean =
         if (name in q && !q.values.any { it.contains(phone) }) {
-            q[name]!!.plusAssign(phone)
+            q[name].let { it.add(phone) }
+            println(q)
             true
         } else false
 
@@ -72,7 +73,7 @@ class PhoneBook {
      */
     fun removePhone(name: String, phone: String): Boolean =
         if (name in q && q.values.any { it.contains(phone) }) {
-            q[name]!!.remove(phone)
+            q[name]?.remove(phone)
             true
         } else
             false
