@@ -59,8 +59,7 @@ class PhoneBook {
      */
     fun addPhone(name: String, phone: String): Boolean =
         if (name in q && !q.values.any { it.contains(phone) }) {
-            q[name].let { it.add(phone) }
-            println(q)
+            q[name]?.plusAssign(phone)
             true
         } else false
 
