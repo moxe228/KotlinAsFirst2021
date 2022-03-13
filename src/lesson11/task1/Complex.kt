@@ -8,9 +8,9 @@ import kotlin.math.pow
  * Фабричный метод для создания комплексного числа из строки вида x+yi
  */
 fun Complex(s: String): Complex {
-    if (Regex("""[-]?\d+[+||-]\d+[i]""").matches(s)) {
+    if (Regex("[-]?\\d+[.]?\\d*?[+-]\\d+[.]?\\d*[i]").matches(s)) {
         var number = mutableListOf<String>()
-        Regex("""[+||-]?\d+""").findAll(s).forEach { number.add(it.value) }
+        Regex("[-+]?\\d+[.]?\\d*").findAll(s).forEach { number.add(it.value) }
         return Complex(number[0].toDouble(), number[1].toDouble())
     } else {
         throw Exception("Не комплексное число")
